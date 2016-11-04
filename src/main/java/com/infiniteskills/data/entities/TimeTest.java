@@ -7,9 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.criterion.Junction.Nature;
 
 @Entity
-@Table(name="TIME_TEST")
+@Table(name = "TIME_TEST")
 public class TimeTest {
 
 	@Id
@@ -17,15 +21,19 @@ public class TimeTest {
 	@Column(name = "TIME_TEST_ID")
 	private Long timeTestId;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "DATETIME_COLUMN")
-	private Date dateTimeColumn;
+	private Date datetimeColumn;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "TIMESTAMP_COLUMN")
-	private Date timeStampColumn;
+	private Date timestampColumn;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "DATE_COLUMN")
 	private Date dateColumn;
 
+	@Temporal(TemporalType.TIME)
 	@Column(name = "TIME_COLUMN")
 	private Date timeColumn;
 
@@ -43,6 +51,105 @@ public class TimeTest {
 
 	public TimeTest() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public TimeTest(Date date) {
+		this.datetimeColumn = date;
+		this.timestampColumn = date;	
+		this.timeColumn = date;
+		this.dateColumn = date;
+
+		this.sqlDatetimeColumn = new java.sql.Timestamp(date.getTime());
+		this.sqlTimestampColumn = new java.sql.Timestamp(date.getTime());
+		this.sqlDateColumn = new java.sql.Date(date.getTime());
+		this.sqlTimeColumn = new java.sql.Time(date.getTime());
+	}
+
+	public Long getTimeTestId() {
+		return timeTestId;
+	}
+
+	public void setTimeTestId(Long timeTestId) {
+		this.timeTestId = timeTestId;
+	}
+
+	public Date getDatetimeColumn() {
+		return datetimeColumn;
+	}
+
+	public void setDatetimeColumn(Date datetimeColumn) {
+		this.datetimeColumn = datetimeColumn;
+	}
+
+	public Date getTimestampColumn() {
+		return timestampColumn;
+	}
+
+	public void setTimestampColumn(Date timestampColumn) {
+		this.timestampColumn = timestampColumn;
+	}
+
+	public Date getDateColumn() {
+		return dateColumn;
+	}
+
+	public void setDateColumn(Date dateColumn) {
+		this.dateColumn = dateColumn;
+	}
+
+	public Date getTimeColumn() {
+		return timeColumn;
+	}
+
+	public void setTimeColumn(Date timeColumn) {
+		this.timeColumn = timeColumn;
+	}
+
+	public java.sql.Timestamp getSqlDatetimeColumn() {
+		return sqlDatetimeColumn;
+	}
+
+	public void setSqlDatetimeColumn(java.sql.Timestamp sqlDatetimeColumn) {
+		this.sqlDatetimeColumn = sqlDatetimeColumn;
+	}
+
+	public java.sql.Timestamp getSqlTimestampColumn() {
+		return sqlTimestampColumn;
+	}
+
+	public void setSqlTimestampColumn(java.sql.Timestamp sqlTimestampColumn) {
+		this.sqlTimestampColumn = sqlTimestampColumn;
+	}
+
+	public java.sql.Date getSqlDateColumn() {
+		return sqlDateColumn;
+	}
+
+	public void setSqlDateColumn(java.sql.Date sqlDateColumn) {
+		this.sqlDateColumn = sqlDateColumn;
+	}
+
+	public java.sql.Time getSqlTimeColumn() {
+		return sqlTimeColumn;
+	}
+
+	public void setSqlTimeColumn(java.sql.Time sqlTimeColumn) {
+		this.sqlTimeColumn = sqlTimeColumn;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "TimeTest ["
+		+ "\n timeTestId=" + timeTestId + ", "
+		+ "\n datetimeColumn=" + datetimeColumn + ","
+		+ "\n timestampColumn=" + timestampColumn + ", "
+		+ "\n dateColumn=" + dateColumn + ", "
+		+ "\n timeColumn=" + timeColumn + ", "
+		+ "\n sqlDatetimeColumn=" + sqlDatetimeColumn + ", "
+		+ "\n sqlTimestampColumn=" + sqlTimestampColumn + ", "
+	    + "\n sqlDateColumn=" + sqlDateColumn + ", "
+	    + "\n sqlTimeColumn=" + sqlTimeColumn + "]";
 	}
 
 }
