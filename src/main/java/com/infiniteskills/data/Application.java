@@ -1,5 +1,6 @@
 package com.infiniteskills.data;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import org.hibernate.Session;
@@ -35,10 +36,28 @@ public class Application {
 		
 
 		try {
-//			session.getTransaction().begin();
-			session.beginTransaction();
-			TimeTest oTimeTest = (TimeTest) session.get(TimeTest.class, new Long(8));
-			System.out.println("TimeTest: " + oTimeTest.toString());
+			session.getTransaction().begin();
+			
+//			session.beginTransaction();
+//			TimeTest oTimeTest = (TimeTest) session.get(TimeTest.class, new Long(8));
+//			System.out.println("TimeTest: " + oTimeTest.toString());
+			
+			User oUser = new User();
+			oUser.setBirthDate(getMyBirthday());
+			oUser.setCreatedBy("William");
+			oUser.setCreatedDate(new Date());
+			oUser.setEmailAddress("william.wen@tac.com.tw");
+			oUser.setFirstName("Wen");
+			oUser.setLastName("William");
+			oUser.setLastUpdatedBy("Henry");
+			oUser.setLastUpdatedDate(new Date());
+			
+			session.save(oUser);
+			session.getTransaction().commit();
+			
+			session.refresh(oUser);
+			
+			System.out.println("William's age is " + oUser.getAge());
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -48,5 +67,13 @@ public class Application {
 			HibernateUtil.getSessionFactory().close();
 		}
 //		session.close();
+	}
+	
+	private static Date getMyBirthday() {
+		Calendar oCalendar=Calendar.getInstance();
+		oCalendar.set(Calendar.YEAR, 1971);
+		oCalendar.set(Calendar.MONTH, 2);
+		oCalendar.set(Calendar.DATE, 11);
+		return oCalendar.getTime();
 	}
 }

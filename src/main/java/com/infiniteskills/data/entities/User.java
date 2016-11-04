@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Formula;
+
 @Entity
 @Table(name = "FINANCES_USER")
 public class User {
@@ -49,9 +51,20 @@ public class User {
 	@Column(name = "CREATED_BY", updatable = false)
 	private String createdBy;
 
+	@Formula("lower(datediff(curdate(), birth_date)/365)")
+	private int age;
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
 	@Transient
-	private boolean valid;	
-	
+	private boolean valid;
+
 	public boolean isValid() {
 		return valid;
 	}
