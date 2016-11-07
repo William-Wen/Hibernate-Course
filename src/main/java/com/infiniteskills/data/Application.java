@@ -116,9 +116,13 @@ public class Application {
 			oCredential.setPassword("1234");
 			oCredential.setUsername("henry");
 			oCredential.setUser(oUser);
+			oUser.setCredential(oCredential);
 			session.save(oCredential);
 			
 			oTransaction.commit();
+			
+			User dbUser = (User) session.get(User.class, oCredential.getUser().getUserId());
+			System.out.println("User name is " + dbUser.getFirstName());
 
 		} catch (Exception e) {
 			// TODO: handle exception
