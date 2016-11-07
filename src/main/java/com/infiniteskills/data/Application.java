@@ -1,15 +1,18 @@
 package com.infiniteskills.data;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
+//import org.hibernate.Transaction;
 
+import com.infiniteskills.data.entities.Account;
 import com.infiniteskills.data.entities.Address;
 import com.infiniteskills.data.entities.Bank;
 import com.infiniteskills.data.entities.Credential;
 import com.infiniteskills.data.entities.TimeTest;
+import com.infiniteskills.data.entities.Transaction;
 import com.infiniteskills.data.entities.User;
 
 public class Application {
@@ -63,7 +66,7 @@ public class Application {
 			//
 			// System.out.println("William's age is " + oUser.getAge());
 
-			Transaction oTransaction = session.beginTransaction();
+			org.hibernate.Transaction oTransaction = session.beginTransaction();
 
 			// Bank oBank = new Bank();
 			// oBank.setName("Federal Trust");
@@ -84,17 +87,17 @@ public class Application {
 			// oBank.getContacts().put("TELLER", "William");
 			// session.save(oBank);
 
-			User oUser = new User();
-			// Address oAddress = new Address();
-			oUser.setAge(26);
-			oUser.setBirthDate(new Date());
-			oUser.setCreatedBy("William");
-			oUser.setCreatedDate(new Date());
-			oUser.setEmailAddress("henry.wen@");
-			oUser.setFirstName("Henry");
-			oUser.setLastName("Wen");
-			oUser.setLastUpdatedBy("William");
-			oUser.setLastUpdatedDate(new Date());
+			// User oUser = new User();
+			// // Address oAddress = new Address();
+			// oUser.setAge(26);
+			// oUser.setBirthDate(new Date());
+			// oUser.setCreatedBy("William");
+			// oUser.setCreatedDate(new Date());
+			// oUser.setEmailAddress("henry.wen@");
+			// oUser.setFirstName("Henry");
+			// oUser.setLastName("Wen");
+			// oUser.setLastUpdatedBy("William");
+			// oUser.setLastUpdatedDate(new Date());
 
 			// oAddress.setAddressLine1("Line1");
 			// oAddress.setAddressLine2("Line2");
@@ -105,25 +108,32 @@ public class Application {
 			// oUser.setAddress(oAddress);
 			// session.save(oUser);
 
-//			Address address1 = new Address(), address2 = new Address();
-//			setAddressFields1(address1);
-//			setAddressFields2(address2);
-//			oUser.getAddress().add(address1);
-//			oUser.getAddress().add(address2);
-			
-//			session.save(oUser);
-			Credential oCredential = new Credential();
-			oCredential.setPassword("1234");
-			oCredential.setUsername("henry");
-			oCredential.setUser(oUser);
-			oUser.setCredential(oCredential);
-			session.save(oCredential);
-			
+			// Address address1 = new Address(), address2 = new Address();
+			// setAddressFields1(address1);
+			// setAddressFields2(address2);
+			// oUser.getAddress().add(address1);
+			// oUser.getAddress().add(address2);
+
+			// session.save(oUser);
+			// Credential oCredential = new Credential();
+			// oCredential.setPassword("1234");
+			// oCredential.setUsername("henry");
+			// oCredential.setUser(oUser);
+			// oUser.setCredential(oCredential);
+			// session.save(oCredential);
+			//
+			// oTransaction.commit();
+			//
+			// User dbUser = (User) session.get(User.class,
+			// oCredential.getUser().getUserId());
+			// System.out.println("User name is " + dbUser.getFirstName());
+
+			Account oAccount = createNewAccount();
+			oAccount.getTransactions().add(createNewBeltPurchase());
+			oAccount.getTransactions().add(createShoePurchase());
+			session.save(oAccount);
 			oTransaction.commit();
 			
-			User dbUser = (User) session.get(User.class, oCredential.getUser().getUserId());
-			System.out.println("User name is " + dbUser.getFirstName());
-
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -157,4 +167,49 @@ public class Application {
 		address.setState("2");
 		address.setZipCode("NT");
 	}
+
+	private static Transaction createNewBeltPurchase() {
+		Transaction beltPurchase = new Transaction();
+		beltPurchase.setTitle("Dress Belt");
+		beltPurchase.setAmount(new BigDecimal("50.00"));
+		beltPurchase.setClosingBalance(new BigDecimal("0.00"));
+		beltPurchase.setCreatedBy("Kevin Bowersox");
+		beltPurchase.setCreatedDate(new Date());
+		beltPurchase.setInitialBalance(new BigDecimal("0.00"));
+		beltPurchase.setLastUpdatedBy("Kevin Bowersox");
+		beltPurchase.setLastUpdatedDate(new Date());
+		beltPurchase.setNotes("New Dress Belt");
+		beltPurchase.setTransactionType("Debit");
+		return beltPurchase;
+	}
+
+	private static Transaction createShoePurchase() {
+		Transaction shoePurchase = new Transaction();
+		shoePurchase.setTitle("Work Shoes");
+		shoePurchase.setAmount(new BigDecimal("100.00"));
+		shoePurchase.setClosingBalance(new BigDecimal("0.00"));
+		shoePurchase.setCreatedBy("Kevin Bowersox");
+		shoePurchase.setCreatedDate(new Date());
+		shoePurchase.setInitialBalance(new BigDecimal("0.00"));
+		shoePurchase.setLastUpdatedBy("Kevin Bowersox");
+		shoePurchase.setLastUpdatedDate(new Date());
+		shoePurchase.setNotes("Nice Pair of Shoes");
+		shoePurchase.setTransactionType("Debit");
+		return shoePurchase;
+	}
+
+	private static Account createNewAccount() {
+		Account account = new Account();
+		account.setCloseDate(new Date());
+		account.setOpenDate(new Date());
+		account.setCreatedBy("Kevin Bowersox");
+		account.setInitialBalance(new BigDecimal("50.00"));
+		account.setName("Savings Account");
+		account.setCurrentBalance(new BigDecimal("100.00"));
+		account.setLastUpdatedBy("Kevin Bowersox");
+		account.setLastUpdatedDate(new Date());
+		account.setCreatedDate(new Date());
+		return account;
+	}
+
 }
