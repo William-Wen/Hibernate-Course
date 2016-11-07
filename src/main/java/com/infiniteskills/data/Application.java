@@ -78,9 +78,10 @@ public class Application {
 			oBank.setLastUpdatedDate(new Date());
 			oBank.setInternational(false);
 			
-			oBank.getContacts().add("Contact 1");
-			oBank.getContacts().add("Contact 2");
-			
+//			oBank.getContacts().add("Contact 1");
+//			oBank.getContacts().add("Contact 2");
+			oBank.getContacts().put("MANAGER", "Henry");
+			oBank.getContacts().put("TELLER", "William");
 			session.save(oBank);
 			
 //			User oUser = new User();
