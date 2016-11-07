@@ -129,10 +129,13 @@ public class Application {
 			// System.out.println("User name is " + dbUser.getFirstName());
 
 			Account oAccount = createNewAccount();
-			oAccount.getTransactions().add(createNewBeltPurchase());
-			oAccount.getTransactions().add(createShoePurchase());
+			oAccount.getTransactions().add(createNewBeltPurchase(oAccount));
+			oAccount.getTransactions().add(createShoePurchase(oAccount));
 			session.save(oAccount);
 			oTransaction.commit();
+			
+			Transaction dbTransaction =(Transaction) session.get(Transaction.class, oAccount.getTransactions().get(0).getTransactionId());
+			System.out.println(dbTransaction.getAccount().getName());
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -168,8 +171,9 @@ public class Application {
 		address.setZipCode("NT");
 	}
 
-	private static Transaction createNewBeltPurchase() {
+	private static Transaction createNewBeltPurchase(Account account) {
 		Transaction beltPurchase = new Transaction();
+		beltPurchase.setAccount(account);
 		beltPurchase.setTitle("Dress Belt");
 		beltPurchase.setAmount(new BigDecimal("50.00"));
 		beltPurchase.setClosingBalance(new BigDecimal("0.00"));
@@ -183,8 +187,9 @@ public class Application {
 		return beltPurchase;
 	}
 
-	private static Transaction createShoePurchase() {
+	private static Transaction createShoePurchase(Account account) {
 		Transaction shoePurchase = new Transaction();
+		shoePurchase.setAccount(account);
 		shoePurchase.setTitle("Work Shoes");
 		shoePurchase.setAmount(new BigDecimal("100.00"));
 		shoePurchase.setClosingBalance(new BigDecimal("0.00"));
