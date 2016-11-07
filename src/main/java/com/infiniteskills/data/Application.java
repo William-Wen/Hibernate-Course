@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 
 import com.infiniteskills.data.entities.Address;
 import com.infiniteskills.data.entities.Bank;
+import com.infiniteskills.data.entities.Credential;
 import com.infiniteskills.data.entities.TimeTest;
 import com.infiniteskills.data.entities.User;
 
@@ -89,8 +90,8 @@ public class Application {
 			oUser.setBirthDate(new Date());
 			oUser.setCreatedBy("William");
 			oUser.setCreatedDate(new Date());
-			oUser.setEmailAddress("william.wen@");
-			oUser.setFirstName("William");
+			oUser.setEmailAddress("henry.wen@");
+			oUser.setFirstName("Henry");
 			oUser.setLastName("Wen");
 			oUser.setLastUpdatedBy("William");
 			oUser.setLastUpdatedDate(new Date());
@@ -104,13 +105,18 @@ public class Application {
 			// oUser.setAddress(oAddress);
 			// session.save(oUser);
 
-			Address address1 = new Address(), address2 = new Address();
-			setAddressFields1(address1);
-			setAddressFields2(address2);
-			oUser.getAddress().add(address1);
-			oUser.getAddress().add(address2);
+//			Address address1 = new Address(), address2 = new Address();
+//			setAddressFields1(address1);
+//			setAddressFields2(address2);
+//			oUser.getAddress().add(address1);
+//			oUser.getAddress().add(address2);
 			
-			session.save(oUser);
+//			session.save(oUser);
+			Credential oCredential = new Credential();
+			oCredential.setPassword("1234");
+			oCredential.setUsername("henry");
+			oCredential.setUser(oUser);
+			session.save(oCredential);
 			
 			oTransaction.commit();
 
