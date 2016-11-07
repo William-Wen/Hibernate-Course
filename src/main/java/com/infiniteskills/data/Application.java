@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import com.infiniteskills.data.entities.Account;
 import com.infiniteskills.data.entities.Address;
 import com.infiniteskills.data.entities.Bank;
+import com.infiniteskills.data.entities.Budget;
 import com.infiniteskills.data.entities.Credential;
 import com.infiniteskills.data.entities.TimeTest;
 import com.infiniteskills.data.entities.Transaction;
@@ -128,14 +129,26 @@ public class Application {
 			// oCredential.getUser().getUserId());
 			// System.out.println("User name is " + dbUser.getFirstName());
 
-			Account oAccount = createNewAccount();
-			oAccount.getTransactions().add(createNewBeltPurchase(oAccount));
-			oAccount.getTransactions().add(createShoePurchase(oAccount));
-			session.save(oAccount);
-			oTransaction.commit();
+//			Account oAccount = createNewAccount();
+//			oAccount.getTransactions().add(createNewBeltPurchase(oAccount));
+//			oAccount.getTransactions().add(createShoePurchase(oAccount));
+//			session.save(oAccount);
+//			oTransaction.commit();
+//			
+//			Transaction dbTransaction =(Transaction) session.get(Transaction.class, oAccount.getTransactions().get(0).getTransactionId());
+//			System.out.println(dbTransaction.getAccount().getName());
 			
-			Transaction dbTransaction =(Transaction) session.get(Transaction.class, oAccount.getTransactions().get(0).getTransactionId());
-			System.out.println(dbTransaction.getAccount().getName());
+			// Section 06, Lecture 38: @JoinTable
+			Account account = createNewAccount();
+			Budget budget = new Budget();
+			budget.setGoalAmount(new BigDecimal("10000.00"));
+			budget.setName("Emergency Fund");
+			budget.setPeriod("Yearly");
+			budget.getTransactions().add(createNewBeltPurchase(account));
+			budget.getTransactions().add(createShoePurchase(account));
+			
+			session.save(budget);
+			oTransaction.commit();
 			
 		} catch (Exception e) {
 			// TODO: handle exception
