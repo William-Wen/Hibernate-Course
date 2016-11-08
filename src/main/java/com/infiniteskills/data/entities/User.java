@@ -2,10 +2,13 @@ package com.infiniteskills.data.entities;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -15,6 +18,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -28,17 +32,22 @@ public class User {
 
 	@Id
 	// @GeneratedValue(strategy = GenerationType.IDENTITY)
-//	@GeneratedValue(strategy = GenerationType.TABLE, generator = "user_table_generator")
-//	@TableGenerator(name = "user_table_generator"
-//		, table = "IFINANCES_KEYS", pkColumnName = "PK_NAME", valueColumnName = "PK_VALUE")
-//	@GeneratedValue(strategy=GenerationType.AUTO)
+	// @GeneratedValue(strategy = GenerationType.TABLE, generator =
+	// "user_table_generator")
+	// @TableGenerator(name = "user_table_generator"
+	// , table = "IFINANCES_KEYS", pkColumnName = "PK_NAME", valueColumnName =
+	// "PK_VALUE")
+	// @GeneratedValue(strategy=GenerationType.AUTO)
 	@GeneratedValue
 	@Column(name = "USER_ID")
 	private Long userId;
 
-	@OneToOne(mappedBy="user")
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "users")
+	private Set<Account> accounts = new HashSet<Account>();
+
+	@OneToOne(mappedBy = "user")
 	private Credential credential;
-	
+
 	@Column(name = "FIRST_NAME")
 	private String firstName;
 
@@ -51,13 +60,13 @@ public class User {
 	@Column(name = "EMAIL_ADDRESS")
 	private String emailAddress;
 
-//	@Embedded
+	// @Embedded
 	@ElementCollection
-	@CollectionTable(name="USER_ADDRESS", joinColumns=@JoinColumn(name="USER_ID"))
-	@AttributeOverrides({@AttributeOverride(name="addressLine1", column=@Column(name="USER_ADDRESS_LINE_1")),
-		@AttributeOverride(name="addressLine2", column=@Column(name="USER_ADDRESS_LINE_2"))})
-//	private Address address;
-	private List<Address> address =new ArrayList<Address>();
+	@CollectionTable(name = "USER_ADDRESS", joinColumns = @JoinColumn(name = "USER_ID"))
+	@AttributeOverrides({ @AttributeOverride(name = "addressLine1", column = @Column(name = "USER_ADDRESS_LINE_1")),
+			@AttributeOverride(name = "addressLine2", column = @Column(name = "USER_ADDRESS_LINE_2")) })
+	// private Address address;
+	private List<Address> address = new ArrayList<Address>();
 
 	@Column(name = "LAST_UPDATED_DATE")
 	private Date lastUpdatedDate;
@@ -133,13 +142,13 @@ public class User {
 		this.emailAddress = emailAddress;
 	}
 
-//	public Address getAddress() {
-//		return address;
-//	}
-//
-//	public void setAddress(Address address) {
-//		this.address = address;
-//	}
+	// public Address getAddress() {
+	// return address;
+	// }
+	//
+	// public void setAddress(Address address) {
+	// this.address = address;
+	// }
 
 	public List<Address> getAddress() {
 		return address;
@@ -148,7 +157,7 @@ public class User {
 	public void setAddress(List<Address> address) {
 		this.address = address;
 	}
-	
+
 	public Date getLastUpdatedDate() {
 		return lastUpdatedDate;
 	}
@@ -187,5 +196,13 @@ public class User {
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
+	}
+
+	public Set<Account> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(Set<Account> accounts) {
+		this.accounts = accounts;
 	}
 }

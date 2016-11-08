@@ -158,16 +158,25 @@ public class Application {
 			User user02=createUser();
 			account01.getUsers().add(user01);
 			account01.getUsers().add(user02);
+			user01.getAccounts().add(account01);
+			user02.getAccounts().add(account01);
 			account02.getUsers().add(user01);
 			account02.getUsers().add(user02);
+			user01.getAccounts().add(account02);
+			user02.getAccounts().add(account02);
 			
 			session.save(account01);
 			session.save(account02);
 			
 			oTransaction.commit();
 			
-			Account dbAccount =(Account) session.get(Account.class, account01.getAccountId());
-			System.out.println("Email: " + dbAccount.getUsers().iterator().next().getEmailAddress());
+			// Section 06. Entity Associations
+			// Lecture 39. Unidirectional Many To Many Association
+//			Account dbAccount =(Account) session.get(Account.class, account01.getAccountId());
+//			System.out.println("Email: " + dbAccount.getUsers().iterator().next().getEmailAddress());
+			
+			User dbUser = (User)session.get(User.class, user01.getUserId());
+			System.out.println("User = [" + dbUser.getAccounts().iterator().next().getName() + "]");
 			
 		} catch (Exception e) {
 			// TODO: handle exception
