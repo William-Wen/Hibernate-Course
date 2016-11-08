@@ -251,20 +251,31 @@ public class Application {
 
 			// Section 07. Hibernate API
 			// Lecture 49. Save Or Update
-			Bank detachedBank = (Bank) session.get(Bank.class, 1L);
+//			Bank detachedBank = (Bank) session.get(Bank.class, 1L);
+//			oTransaction.commit();
+//			session.close();
+//			
+//			Bank transientBank = createBank();
+//			
+//			Session oSession2 = HibernateUtil.getSessionFactory().openSession();
+//			org.hibernate.Transaction oTransaction2 = oSession2.beginTransaction();
+//			
+//			oSession2.saveOrUpdate(detachedBank);
+//			oSession2.saveOrUpdate(transientBank);
+//			detachedBank.setName("Test Bank 2");
+//			oTransaction2.commit();
+//			oSession2.close();
+			
+			// Section 07. Hibernate API
+			// Lecture 50. Flushing The Presistence Context
+			Bank oBank = (Bank) session.get(Bank.class, 1L);
+			oBank.setName("Changed Bank");
+			System.out.println("Calling Flush");
+			session.flush();
+			
+			oBank.setAddressLine1("Changed Address");
+			System.out.println("Calling commit");
 			oTransaction.commit();
-			session.close();
-			
-			Bank transientBank = createBank();
-			
-			Session oSession2 = HibernateUtil.getSessionFactory().openSession();
-			org.hibernate.Transaction oTransaction2 = oSession2.beginTransaction();
-			
-			oSession2.saveOrUpdate(detachedBank);
-			oSession2.saveOrUpdate(transientBank);
-			detachedBank.setName("Test Bank 2");
-			oTransaction2.commit();
-			oSession2.close();
 			
 
 		} catch (Exception e) {
