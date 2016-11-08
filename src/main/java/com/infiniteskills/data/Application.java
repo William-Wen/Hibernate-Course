@@ -215,11 +215,20 @@ public class Application {
 
 			// Section 07. Hibernate API
 			// Lecture 46. Modifying Entities.
-			Bank oBank = (Bank) session.get(Bank.class, 1L);
-			oBank.setName("Standard Bank");
-			oBank.setLastUpdatedBy("William Wen");
-			oBank.setLastUpdatedDate(new Date());
+//			Bank oBank = (Bank) session.get(Bank.class, 1L);
+//			oBank.setName("Standard Bank");
+//			oBank.setLastUpdatedBy("William Wen");
+//			oBank.setLastUpdatedDate(new Date());
+//			
+//			oTransaction.commit();
 			
+			// Section 07. Hibernate API
+			// Lecture 47. Removing Entities
+			Bank oBank = (Bank) session.get(Bank.class, 1L);
+			System.out.println(session.contains(oBank));
+			session.delete(oBank);
+			System.out.println("Method Invoked");
+			System.out.println(session.contains(oBank));
 			oTransaction.commit();
 			
 		} catch (Exception e) {
