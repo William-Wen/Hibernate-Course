@@ -152,31 +152,46 @@ public class Application {
 //			oTransaction.commit();
 			
 			// Section 06, Lecture 39¡G Unidirectional Many To Many Association
-			Account account01 = createNewAccount();
-			Account account02 = createNewAccount();
-			User user01 = createUser();
-			User user02=createUser();
-			account01.getUsers().add(user01);
-			account01.getUsers().add(user02);
-			user01.getAccounts().add(account01);
-			user02.getAccounts().add(account01);
-			account02.getUsers().add(user01);
-			account02.getUsers().add(user02);
-			user01.getAccounts().add(account02);
-			user02.getAccounts().add(account02);
+//			Account account01 = createNewAccount();
+//			Account account02 = createNewAccount();
+//			User user01 = createUser();
+//			User user02=createUser();
+//			account01.getUsers().add(user01);
+//			account01.getUsers().add(user02);
+//			user01.getAccounts().add(account01);
+//			user02.getAccounts().add(account01);
+//			account02.getUsers().add(user01);
+//			account02.getUsers().add(user02);
+//			user01.getAccounts().add(account02);
+//			user02.getAccounts().add(account02);
+//			
+//			session.save(account01);
+//			session.save(account02);
+//			
+//			oTransaction.commit();
+//			
+//			// Section 06. Entity Associations
+//			// Lecture 39. Unidirectional Many To Many Association
+////			Account dbAccount =(Account) session.get(Account.class, account01.getAccountId());
+////			System.out.println("Email: " + dbAccount.getUsers().iterator().next().getEmailAddress());
+//			
+//			User dbUser = (User)session.get(User.class, user01.getUserId());
+//			System.out.println("User = [" + dbUser.getAccounts().iterator().next().getName() + "]");
+			Account oAccount = createNewAccount();
+			Transaction oTransactionBelt = createNewBeltPurchase(oAccount);
+			Transaction oTransactionShoe = createShoePurchase(oAccount);
 			
-			session.save(account01);
-			session.save(account02);
+			oAccount.getTransactions().add(oTransactionBelt);
+			oAccount.getTransactions().add(oTransactionShoe);
 			
+			System.out.println(session.contains(oAccount));
+			System.out.println(session.contains(oTransactionBelt));
+			System.out.println(session.contains(oTransactionShoe));
+			session.save(oAccount);
+			System.out.println(session.contains(oAccount));
+			System.out.println(session.contains(oTransactionBelt));
+			System.out.println(session.contains(oTransactionShoe));
 			oTransaction.commit();
-			
-			// Section 06. Entity Associations
-			// Lecture 39. Unidirectional Many To Many Association
-//			Account dbAccount =(Account) session.get(Account.class, account01.getAccountId());
-//			System.out.println("Email: " + dbAccount.getUsers().iterator().next().getEmailAddress());
-			
-			User dbUser = (User)session.get(User.class, user01.getUserId());
-			System.out.println("User = [" + dbUser.getAccounts().iterator().next().getName() + "]");
 			
 		} catch (Exception e) {
 			// TODO: handle exception
