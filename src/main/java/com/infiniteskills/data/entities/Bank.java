@@ -64,7 +64,7 @@ public class Bank {
 //	public Collection<String> contacts = new ArrayList<String>();
 //	public List<String> contacts = new ArrayList<String>();
 	public Map<String, String> contacts = new HashMap<String, String>();
-	
+
 
 	public Long getBankId() {
 		return bankId;
@@ -130,6 +130,14 @@ public class Bank {
 		this.address.setZipCode(zipCode);
 	}
 
+	public String getAddressType() {
+		return address.getAddressType();
+	}
+
+	public void setAddressType(String addressType) {
+		this.address.setAddressType(addressType);
+	}
+	
 	public boolean isInternational() {
 		return isInternational;
 	}

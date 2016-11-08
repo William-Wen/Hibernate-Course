@@ -219,9 +219,9 @@ public class Application {
 //			oBank.setName("Standard Bank");
 //			oBank.setLastUpdatedBy("William Wen");
 //			oBank.setLastUpdatedDate(new Date());
-//			
+//
 //			oTransaction.commit();
-			
+
 			// Section 07. Hibernate API
 			// Lecture 47. Removing Entities
 //			Bank oBank = (Bank) session.get(Bank.class, 1L);
@@ -230,25 +230,43 @@ public class Application {
 //			System.out.println("Method Invoked");
 //			System.out.println(session.contains(oBank));
 //			oTransaction.commit();
-			
+
 			// Section 07. Hibernate API
 			// Lecture 48. Reattaching Detached Entities
-			Bank oBank = (Bank) session.get(Bank.class, 1L);
+//			Bank oBank = (Bank) session.get(Bank.class, 1L);
+//			oTransaction.commit();
+//			session.close();
+//
+//			Session oSession2 = HibernateUtil.getSessionFactory().openSession();
+//			org.hibernate.Transaction oTransaction2 = oSession2.beginTransaction();
+//
+//			System.out.println(oSession2.contains(oBank));
+//			oSession2.update(oBank);
+//			oBank.setName("CITI BANK");
+//			System.out.println("Update Method Invoke");
+//			System.out.println(oSession2.contains(oBank));
+//
+//			oTransaction2.commit();
+//			oSession2.close();
+
+			// Section 07. Hibernate API
+			// Lecture 49. Save Or Update
+			Bank detachedBank = (Bank) session.get(Bank.class, 1L);
 			oTransaction.commit();
 			session.close();
+			
+			Bank transientBank = createBank();
 			
 			Session oSession2 = HibernateUtil.getSessionFactory().openSession();
 			org.hibernate.Transaction oTransaction2 = oSession2.beginTransaction();
 			
-			System.out.println(oSession2.contains(oBank));
-			oSession2.update(oBank);
-			oBank.setName("CITI BANK");
-			System.out.println("Update Method Invoke");
-			System.out.println(oSession2.contains(oBank));
-			
+			oSession2.saveOrUpdate(detachedBank);
+			oSession2.saveOrUpdate(transientBank);
+			detachedBank.setName("Test Bank 2");
 			oTransaction2.commit();
 			oSession2.close();
 			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -362,6 +380,23 @@ public class Application {
 		account.setLastUpdatedDate(new Date());
 		account.setCreatedDate(new Date());
 		return account;
+	}
+
+	private static Bank createBank() {
+		Bank oBank = new Bank();
+		oBank.setName("First United Federal");
+		oBank.setAddressLine1("103 Washington Plaza");
+		oBank.setAddressLine2("Suite 332");
+		oBank.setAddressType("PRIMARY");
+		oBank.setCity("New York");
+		oBank.setCreatedBy("William Wen");
+		oBank.setCreatedDate(new Date());
+		oBank.setInternational(false);
+		oBank.setLastUpdatedBy("Henry Wen");
+		oBank.setLastUpdatedDate(new Date());
+		oBank.setState("NY");
+		oBank.setZipCode("999");
+		return oBank;
 	}
 
 }
