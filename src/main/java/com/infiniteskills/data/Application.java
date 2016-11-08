@@ -224,18 +224,36 @@ public class Application {
 			
 			// Section 07. Hibernate API
 			// Lecture 47. Removing Entities
+//			Bank oBank = (Bank) session.get(Bank.class, 1L);
+//			System.out.println(session.contains(oBank));
+//			session.delete(oBank);
+//			System.out.println("Method Invoked");
+//			System.out.println(session.contains(oBank));
+//			oTransaction.commit();
+			
+			// Section 07. Hibernate API
+			// Lecture 48. Reattaching Detached Entities
 			Bank oBank = (Bank) session.get(Bank.class, 1L);
-			System.out.println(session.contains(oBank));
-			session.delete(oBank);
-			System.out.println("Method Invoked");
-			System.out.println(session.contains(oBank));
 			oTransaction.commit();
+			session.close();
+			
+			Session oSession2 = HibernateUtil.getSessionFactory().openSession();
+			org.hibernate.Transaction oTransaction2 = oSession2.beginTransaction();
+			
+			System.out.println(oSession2.contains(oBank));
+			oSession2.update(oBank);
+			oBank.setName("CITI BANK");
+			System.out.println("Update Method Invoke");
+			System.out.println(oSession2.contains(oBank));
+			
+			oTransaction2.commit();
+			oSession2.close();
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		} finally {
-			session.close();
+//			session.close();
 			HibernateUtil.getSessionFactory().close();
 		}
 		// session.close();
