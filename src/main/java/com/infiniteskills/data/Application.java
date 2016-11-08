@@ -203,16 +203,25 @@ public class Application {
 
 			// Section 07, Hibernate API
 			// Lecture 45, Retrieving Entities
-//			 Bank oBank =(Bank) session.get(Bank.class, 123L);
-//			Bank oBank = (Bank) session.get(Bank.class, 1L);
-//			oBank = (Bank) session.get(Bank.class, 1L);
-//			Bank oBank = (Bank) session.load(Bank.class, 1L);
-			Bank oBank = (Bank) session.load(Bank.class, 1123L);
-			System.out.println("Method Executed");
+////			 Bank oBank =(Bank) session.get(Bank.class, 123L);
+////			Bank oBank = (Bank) session.get(Bank.class, 1L);
+////			oBank = (Bank) session.get(Bank.class, 1L);
+////			Bank oBank = (Bank) session.load(Bank.class, 1L);
+//			Bank oBank = (Bank) session.load(Bank.class, 1123L);
+//			System.out.println("Method Executed");
+//
+//			System.out.println("Bank: [" + oBank.getName() + "]");
+//			oTransaction.commit();
 
-			System.out.println("Bank: [" + oBank.getName() + "]");
+			// Section 07. Hibernate API
+			// Lecture 46. Modifying Entities.
+			Bank oBank = (Bank) session.get(Bank.class, 1L);
+			oBank.setName("Standard Bank");
+			oBank.setLastUpdatedBy("William Wen");
+			oBank.setLastUpdatedDate(new Date());
+			
 			oTransaction.commit();
-
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
