@@ -1,6 +1,7 @@
 package com.infiniteskills.data;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -139,16 +140,34 @@ public class Application {
 //			System.out.println(dbTransaction.getAccount().getName());
 			
 			// Section 06, Lecture 38: @JoinTable
-			Account account = createNewAccount();
-			Budget budget = new Budget();
-			budget.setGoalAmount(new BigDecimal("10000.00"));
-			budget.setName("Emergency Fund");
-			budget.setPeriod("Yearly");
-			budget.getTransactions().add(createNewBeltPurchase(account));
-			budget.getTransactions().add(createShoePurchase(account));
+//			Account account = createNewAccount();
+//			Budget budget = new Budget();
+//			budget.setGoalAmount(new BigDecimal("10000.00"));
+//			budget.setName("Emergency Fund");
+//			budget.setPeriod("Yearly");
+//			budget.getTransactions().add(createNewBeltPurchase(account));
+//			budget.getTransactions().add(createShoePurchase(account));
+//			
+//			session.save(budget);
+//			oTransaction.commit();
 			
-			session.save(budget);
+			// Section 06, Lecture 39¡G Unidirectional Many To Many Association
+			Account account01 = createNewAccount();
+			Account account02 = createNewAccount();
+			User user01 = createUser();
+			User user02=createUser();
+			account01.getUsers().add(user01);
+			account01.getUsers().add(user02);
+			account02.getUsers().add(user01);
+			account02.getUsers().add(user02);
+			
+			session.save(account01);
+			session.save(account02);
+			
 			oTransaction.commit();
+			
+			Account dbAccount =(Account) session.get(Account.class, account01.getAccountId());
+			System.out.println("Email: " + dbAccount.getUsers().iterator().next().getEmailAddress());
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -184,6 +203,41 @@ public class Application {
 		address.setZipCode("NT");
 	}
 
+	private static User createUser() {
+		User user = new User();
+		Address address = createAddress();
+		user.setAddress(Arrays.asList(new Address[]{createAddress()}));
+		user.setBirthDate(new Date());
+		user.setCreatedBy("Kevin Bowersox");
+		user.setCreatedDate(new Date());
+		user.setCredential(createCredential(user));
+		user.setEmailAddress("test@test.com");
+		user.setFirstName("William");
+		user.setLastName("Wen");
+		user.setLastUpdatedBy("William Wen");
+		user.setLastUpdatedDate(new Date());
+		return user;
+	}
+	
+	private static Address createAddress() {
+		Address address = new Address();
+		address.setAddressLine1("101 Address Line");
+		address.setAddressLine2("102 Address Line");
+		address.setCity("New York");
+		address.setState("PA");
+		address.setZipCode("10000");
+		address.setAddressType("PRIMARY");
+		return address;
+	}
+	
+	private static Credential createCredential(User user) {
+		Credential credential = new Credential();
+		credential.setUser(user);
+		credential.setUsername("test_username");
+		credential.setPassword("test_password");
+		return credential;
+	}
+	
 	private static Transaction createNewBeltPurchase(Account account) {
 		Transaction beltPurchase = new Transaction();
 		beltPurchase.setAccount(account);
