@@ -130,69 +130,89 @@ public class Application {
 			// oCredential.getUser().getUserId());
 			// System.out.println("User name is " + dbUser.getFirstName());
 
-//			Account oAccount = createNewAccount();
-//			oAccount.getTransactions().add(createNewBeltPurchase(oAccount));
-//			oAccount.getTransactions().add(createShoePurchase(oAccount));
-//			session.save(oAccount);
-//			oTransaction.commit();
-//			
-//			Transaction dbTransaction =(Transaction) session.get(Transaction.class, oAccount.getTransactions().get(0).getTransactionId());
-//			System.out.println(dbTransaction.getAccount().getName());
-			
+			// Account oAccount = createNewAccount();
+			// oAccount.getTransactions().add(createNewBeltPurchase(oAccount));
+			// oAccount.getTransactions().add(createShoePurchase(oAccount));
+			// session.save(oAccount);
+			// oTransaction.commit();
+			//
+			// Transaction dbTransaction =(Transaction)
+			// session.get(Transaction.class,
+			// oAccount.getTransactions().get(0).getTransactionId());
+			// System.out.println(dbTransaction.getAccount().getName());
+
 			// Section 06, Lecture 38: @JoinTable
-//			Account account = createNewAccount();
-//			Budget budget = new Budget();
-//			budget.setGoalAmount(new BigDecimal("10000.00"));
-//			budget.setName("Emergency Fund");
-//			budget.setPeriod("Yearly");
-//			budget.getTransactions().add(createNewBeltPurchase(account));
-//			budget.getTransactions().add(createShoePurchase(account));
-//			
-//			session.save(budget);
-//			oTransaction.commit();
-			
+			// Account account = createNewAccount();
+			// Budget budget = new Budget();
+			// budget.setGoalAmount(new BigDecimal("10000.00"));
+			// budget.setName("Emergency Fund");
+			// budget.setPeriod("Yearly");
+			// budget.getTransactions().add(createNewBeltPurchase(account));
+			// budget.getTransactions().add(createShoePurchase(account));
+			//
+			// session.save(budget);
+			// oTransaction.commit();
+
 			// Section 06, Lecture 39¡G Unidirectional Many To Many Association
-//			Account account01 = createNewAccount();
-//			Account account02 = createNewAccount();
-//			User user01 = createUser();
-//			User user02=createUser();
-//			account01.getUsers().add(user01);
-//			account01.getUsers().add(user02);
-//			user01.getAccounts().add(account01);
-//			user02.getAccounts().add(account01);
-//			account02.getUsers().add(user01);
-//			account02.getUsers().add(user02);
-//			user01.getAccounts().add(account02);
-//			user02.getAccounts().add(account02);
-//			
-//			session.save(account01);
-//			session.save(account02);
-//			
-//			oTransaction.commit();
-//			
-//			// Section 06. Entity Associations
-//			// Lecture 39. Unidirectional Many To Many Association
-////			Account dbAccount =(Account) session.get(Account.class, account01.getAccountId());
-////			System.out.println("Email: " + dbAccount.getUsers().iterator().next().getEmailAddress());
-//			
-//			User dbUser = (User)session.get(User.class, user01.getUserId());
-//			System.out.println("User = [" + dbUser.getAccounts().iterator().next().getName() + "]");
-			Account oAccount = createNewAccount();
-			Transaction oTransactionBelt = createNewBeltPurchase(oAccount);
-			Transaction oTransactionShoe = createShoePurchase(oAccount);
-			
-			oAccount.getTransactions().add(oTransactionBelt);
-			oAccount.getTransactions().add(oTransactionShoe);
-			
-			System.out.println(session.contains(oAccount));
-			System.out.println(session.contains(oTransactionBelt));
-			System.out.println(session.contains(oTransactionShoe));
-			session.save(oAccount);
-			System.out.println(session.contains(oAccount));
-			System.out.println(session.contains(oTransactionBelt));
-			System.out.println(session.contains(oTransactionShoe));
+			// Account account01 = createNewAccount();
+			// Account account02 = createNewAccount();
+			// User user01 = createUser();
+			// User user02=createUser();
+			// account01.getUsers().add(user01);
+			// account01.getUsers().add(user02);
+			// user01.getAccounts().add(account01);
+			// user02.getAccounts().add(account01);
+			// account02.getUsers().add(user01);
+			// account02.getUsers().add(user02);
+			// user01.getAccounts().add(account02);
+			// user02.getAccounts().add(account02);
+			//
+			// session.save(account01);
+			// session.save(account02);
+			//
+			// oTransaction.commit();
+			//
+			// // Section 06. Entity Associations
+			// // Lecture 39. Unidirectional Many To Many Association
+			//// Account dbAccount =(Account) session.get(Account.class,
+			// account01.getAccountId());
+			//// System.out.println("Email: " +
+			// dbAccount.getUsers().iterator().next().getEmailAddress());
+			//
+			// User dbUser = (User)session.get(User.class, user01.getUserId());
+			// System.out.println("User = [" +
+			// dbUser.getAccounts().iterator().next().getName() + "]");
+
+			// Section 07, Hibernate API
+			// Lecture 45, Saving Entities
+			// Account oAccount = createNewAccount();
+			// Transaction oTransactionBelt = createNewBeltPurchase(oAccount);
+			// Transaction oTransactionShoe = createShoePurchase(oAccount);
+			//
+			// oAccount.getTransactions().add(oTransactionBelt);
+			// oAccount.getTransactions().add(oTransactionShoe);
+			//
+			// System.out.println(session.contains(oAccount));
+			// System.out.println(session.contains(oTransactionBelt));
+			// System.out.println(session.contains(oTransactionShoe));
+			// session.save(oAccount);
+			// System.out.println(session.contains(oAccount));
+			// System.out.println(session.contains(oTransactionBelt));
+			// System.out.println(session.contains(oTransactionShoe));
+			// oTransaction.commit();
+
+			// Section 07, Hibernate API
+			// Lecture 45, Retrieving Entities
+//			 Bank oBank =(Bank) session.get(Bank.class, 123L);
+//			Bank oBank = (Bank) session.get(Bank.class, 1L);
+//			oBank = (Bank) session.get(Bank.class, 1L);
+//			Bank oBank = (Bank) session.load(Bank.class, 1L);
+			Bank oBank = (Bank) session.load(Bank.class, 1123L);
+			System.out.println("Method Executed");
+
+			System.out.println("Bank: [" + oBank.getName() + "]");
 			oTransaction.commit();
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -230,7 +250,7 @@ public class Application {
 	private static User createUser() {
 		User user = new User();
 		Address address = createAddress();
-		user.setAddress(Arrays.asList(new Address[]{createAddress()}));
+		user.setAddress(Arrays.asList(new Address[] { createAddress() }));
 		user.setBirthDate(new Date());
 		user.setCreatedBy("Kevin Bowersox");
 		user.setCreatedDate(new Date());
@@ -242,7 +262,7 @@ public class Application {
 		user.setLastUpdatedDate(new Date());
 		return user;
 	}
-	
+
 	private static Address createAddress() {
 		Address address = new Address();
 		address.setAddressLine1("101 Address Line");
@@ -253,7 +273,7 @@ public class Application {
 		address.setAddressType("PRIMARY");
 		return address;
 	}
-	
+
 	private static Credential createCredential(User user) {
 		Credential credential = new Credential();
 		credential.setUser(user);
@@ -261,7 +281,7 @@ public class Application {
 		credential.setPassword("test_password");
 		return credential;
 	}
-	
+
 	private static Transaction createNewBeltPurchase(Account account) {
 		Transaction beltPurchase = new Transaction();
 		beltPurchase.setAccount(account);
