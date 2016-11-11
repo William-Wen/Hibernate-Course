@@ -15,6 +15,7 @@ import com.infiniteskills.data.entities.Bank;
 import com.infiniteskills.data.entities.Budget;
 import com.infiniteskills.data.entities.Credential;
 import com.infiniteskills.data.entities.Currency;
+import com.infiniteskills.data.entities.Market;
 import com.infiniteskills.data.entities.TimeTest;
 import com.infiniteskills.data.entities.Transaction;
 import com.infiniteskills.data.entities.User;
@@ -208,7 +209,10 @@ public class Application {
 			oSession01 = oSessionFactory.openSession();
 			oTransaction01 =oSession01.beginTransaction();
 			
-			Currency oCurrency = new Currency();
+/*			Section 09. Advanced Mappings & Configuraition
+ 			Lecture 60. Compound Primary Keys
+ 			
+  			Currency oCurrency = new Currency();
 			oCurrency.setCountryName("Taiwan");
 			oCurrency.setName("Dollar");
 			oCurrency.setSymbol("$");
@@ -221,6 +225,17 @@ public class Application {
 			Currency dbCurrency = (Currency) oSession02.get(Currency.class, new CurrencyId("Dollar", "Taiwan"));
 			System.out.println("Country Name: [" + dbCurrency.getCountryName() + "]");
 			oTransaction02.commit();
+*/			
+			Currency oCurrency = new Currency();
+			oCurrency.setCountryName("China");
+			oCurrency.setName("Pound");
+			oCurrency.setSymbol("Pound Sign");
+			
+			Market oMarket = new Market();
+			oMarket.setMarketName("Stock Exchange");
+			oMarket.setCurrency(oCurrency);
+			oSession01.persist(oMarket);
+			oTransaction01.commit();
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -228,12 +243,12 @@ public class Application {
 			if (oTransaction01 != null) {
 				oTransaction01.rollback();
 			}
-			if (oTransaction02 != null) {
-				oTransaction02.rollback();
-			}
+//			if (oTransaction02 != null) {
+//				oTransaction02.rollback();
+//			}
 		} finally {
 			oSession01.close();
-			oSession02.close();
+//			oSession02.close();
 			oSessionFactory.close();
 		}
 	}
