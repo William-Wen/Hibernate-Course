@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.infiniteskills.data.entities.Account;
+import com.infiniteskills.data.entities.AccountType;
 import com.infiniteskills.data.entities.Address;
 import com.infiniteskills.data.entities.Bank;
 import com.infiniteskills.data.entities.Budget;
@@ -226,7 +227,10 @@ public class Application {
 			System.out.println("Country Name: [" + dbCurrency.getCountryName() + "]");
 			oTransaction02.commit();
 */			
-			Currency oCurrency = new Currency();
+/*			Section 09. Advanced Mappings & Configuration
+ 			Lecture 61. Compound Join Columns
+ 			
+ 			Currency oCurrency = new Currency();
 			oCurrency.setCountryName("China");
 			oCurrency.setName("Pound");
 			oCurrency.setSymbol("Pound Sign");
@@ -236,6 +240,19 @@ public class Application {
 			oMarket.setCurrency(oCurrency);
 			oSession01.persist(oMarket);
 			oTransaction01.commit();
+*/			
+//			Section 09. Advanced Mappings & Configuration
+//			Lecture 62. Enumerations
+			Account oAccount = createNewAccount();
+			oAccount.setAccountType(AccountType.SAVINGS);
+			
+			oSession01.save(oAccount);
+			oTransaction01.commit();
+			
+			Account dbAccount = (Account) oSession01.get(Account.class, oAccount.getAccountId());
+			System.out.println("Account Name: [" + dbAccount.getName() + "]");
+			System.out.println("Account Type: [" + dbAccount.getAccountType() + "]");
+			
 			
 		} catch (Exception e) {
 			// TODO: handle exception
