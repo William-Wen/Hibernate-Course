@@ -63,7 +63,7 @@ public class Bank {
 	@Column(name="NAME")
 //	public Collection<String> contacts = new ArrayList<String>();
 //	public List<String> contacts = new ArrayList<String>();
-	public Map<String, String> contacts = new HashMap<String, String>();
+	private Map<String, String> contacts = new HashMap<String, String>();
 
 
 	public Long getBankId() {

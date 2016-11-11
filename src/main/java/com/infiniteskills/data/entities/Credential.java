@@ -21,7 +21,7 @@ public class Credential {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "USER_ID")
-	public User user;
+	private User user;
 
 	@Column(name = "USERNAME")
 	private String username;
