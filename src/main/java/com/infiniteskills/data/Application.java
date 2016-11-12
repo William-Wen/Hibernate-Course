@@ -13,10 +13,12 @@ import com.infiniteskills.data.entities.Account;
 import com.infiniteskills.data.entities.AccountType;
 import com.infiniteskills.data.entities.Address;
 import com.infiniteskills.data.entities.Bank;
+import com.infiniteskills.data.entities.Bond;
 import com.infiniteskills.data.entities.Budget;
 import com.infiniteskills.data.entities.Credential;
 import com.infiniteskills.data.entities.Currency;
 import com.infiniteskills.data.entities.Market;
+import com.infiniteskills.data.entities.Stock;
 import com.infiniteskills.data.entities.TimeTest;
 import com.infiniteskills.data.entities.Transaction;
 import com.infiniteskills.data.entities.User;
@@ -28,7 +30,7 @@ public class Application {
 	 * public static void main(String[] args) { Session session =
 	 * HibernateUtil.getSessionFactory().openSession(); //
 	 * session.beginTransaction(); // session.close();
-	 * 
+	 *
 	 * // session.getTransaction().begin(); // User user = new User(); //
 	 * user.setBirthDate(new Date());//(null); // user.setCreatedDate(new
 	 * Date()); // user.setCreatedBy("kevin"); //
@@ -36,17 +38,17 @@ public class Application {
 	 * // user.setLastName("Bowersox"); // user.setLastUpdatedBy("kevin"); //
 	 * user.setLastUpdatedDate(new Date()); // session.save(user); //
 	 * session.getTransaction().commit();
-	 * 
+	 *
 	 * // session.beginTransaction(); // User dbUser =(User)
 	 * session.get(User.class, user.getUserId()); // dbUser.setFirstName("Joe");
 	 * // session.update(dbUser); // session.getTransaction().commit();
-	 * 
+	 *
 	 * try { // session.getTransaction().begin();
-	 * 
+	 *
 	 * // session.beginTransaction(); // TimeTest oTimeTest = (TimeTest)
 	 * session.get(TimeTest.class, new // Long(8)); //
 	 * System.out.println("TimeTest: " + oTimeTest.toString());
-	 * 
+	 *
 	 * // User oUser = new User(); // oUser.setBirthDate(getMyBirthday()); //
 	 * oUser.setCreatedBy("William"); // oUser.setCreatedDate(new Date()); //
 	 * oUser.setEmailAddress("william.wen@tac.com.tw"); //
@@ -55,9 +57,9 @@ public class Application {
 	 * // // session.save(oUser); // session.getTransaction().commit(); // //
 	 * session.refresh(oUser); // // System.out.println("William's age is " +
 	 * oUser.getAge());
-	 * 
+	 *
 	 * org.hibernate.Transaction oTransaction = session.beginTransaction();
-	 * 
+	 *
 	 * // Bank oBank = new Bank(); // oBank.setName("Federal Trust"); //
 	 * oBank.setAddressLine1("33 Wall Street"); //
 	 * oBank.setAddressLine2("Suite 302"); // oBank.setCity("New York"); //
@@ -69,31 +71,31 @@ public class Application {
 	 * oBank.getContacts().add("Contact 2"); //
 	 * oBank.getContacts().put("MANAGER", "Henry"); //
 	 * oBank.getContacts().put("TELLER", "William"); // session.save(oBank);
-	 * 
+	 *
 	 * // User oUser = new User(); // // Address oAddress = new Address(); //
 	 * oUser.setAge(26); // oUser.setBirthDate(new Date()); //
 	 * oUser.setCreatedBy("William"); // oUser.setCreatedDate(new Date()); //
 	 * oUser.setEmailAddress("henry.wen@"); // oUser.setFirstName("Henry"); //
 	 * oUser.setLastName("Wen"); // oUser.setLastUpdatedBy("William"); //
 	 * oUser.setLastUpdatedDate(new Date());
-	 * 
+	 *
 	 * // oAddress.setAddressLine1("Line1"); //
 	 * oAddress.setAddressLine2("Line2"); // oAddress.setCity("Philadelphia");
 	 * // oAddress.setState("PA"); // oAddress.setZipCode("12345");
-	 * 
+	 *
 	 * // oUser.setAddress(oAddress); // session.save(oUser);
-	 * 
+	 *
 	 * // Address address1 = new Address(), address2 = new Address(); //
 	 * setAddressFields1(address1); // setAddressFields2(address2); //
 	 * oUser.getAddress().add(address1); // oUser.getAddress().add(address2);
-	 * 
+	 *
 	 * // session.save(oUser); // Credential oCredential = new Credential(); //
 	 * oCredential.setPassword("1234"); // oCredential.setUsername("henry"); //
 	 * oCredential.setUser(oUser); // oUser.setCredential(oCredential); //
 	 * session.save(oCredential); // // oTransaction.commit(); // // User dbUser
 	 * = (User) session.get(User.class, // oCredential.getUser().getUserId());
 	 * // System.out.println("User name is " + dbUser.getFirstName());
-	 * 
+	 *
 	 * // Account oAccount = createNewAccount(); //
 	 * oAccount.getTransactions().add(createNewBeltPurchase(oAccount)); //
 	 * oAccount.getTransactions().add(createShoePurchase(oAccount)); //
@@ -101,7 +103,7 @@ public class Application {
 	 * dbTransaction =(Transaction) // session.get(Transaction.class, //
 	 * oAccount.getTransactions().get(0).getTransactionId()); //
 	 * System.out.println(dbTransaction.getAccount().getName());
-	 * 
+	 *
 	 * // Section 06, Lecture 38: @JoinTable // Account account =
 	 * createNewAccount(); // Budget budget = new Budget(); //
 	 * budget.setGoalAmount(new BigDecimal("10000.00")); //
@@ -109,7 +111,7 @@ public class Application {
 	 * budget.getTransactions().add(createNewBeltPurchase(account)); //
 	 * budget.getTransactions().add(createShoePurchase(account)); // //
 	 * session.save(budget); // oTransaction.commit();
-	 * 
+	 *
 	 * // Section 06, Lecture 39¡G Unidirectional Many To Many Association //
 	 * Account account01 = createNewAccount(); // Account account02 =
 	 * createNewAccount(); // User user01 = createUser(); // User
@@ -127,7 +129,7 @@ public class Application {
 	 * dbUser = (User)session.get(User.class, user01.getUserId()); //
 	 * System.out.println("User = [" + //
 	 * dbUser.getAccounts().iterator().next().getName() + "]");
-	 * 
+	 *
 	 * // Section 07, Hibernate API // Lecture 45, Saving Entities // Account
 	 * oAccount = createNewAccount(); // Transaction oTransactionBelt =
 	 * createNewBeltPurchase(oAccount); // Transaction oTransactionShoe =
@@ -142,7 +144,7 @@ public class Application {
 	 * System.out.println(session.contains(oTransactionBelt)); //
 	 * System.out.println(session.contains(oTransactionShoe)); //
 	 * oTransaction.commit();
-	 * 
+	 *
 	 * // Section 07, Hibernate API // Lecture 45, Retrieving Entities //// Bank
 	 * oBank =(Bank) session.get(Bank.class, 123L); //// Bank oBank = (Bank)
 	 * session.get(Bank.class, 1L); //// oBank = (Bank) session.get(Bank.class,
@@ -150,18 +152,18 @@ public class Application {
 	 * = (Bank) session.load(Bank.class, 1123L); //
 	 * System.out.println("Method Executed"); // // System.out.println("Bank: ["
 	 * + oBank.getName() + "]"); // oTransaction.commit();
-	 * 
+	 *
 	 * // Section 07. Hibernate API // Lecture 46. Modifying Entities. // Bank
 	 * oBank = (Bank) session.get(Bank.class, 1L); //
 	 * oBank.setName("Standard Bank"); // oBank.setLastUpdatedBy("William Wen");
 	 * // oBank.setLastUpdatedDate(new Date()); // // oTransaction.commit();
-	 * 
+	 *
 	 * // Section 07. Hibernate API // Lecture 47. Removing Entities // Bank
 	 * oBank = (Bank) session.get(Bank.class, 1L); //
 	 * System.out.println(session.contains(oBank)); // session.delete(oBank); //
 	 * System.out.println("Method Invoked"); //
 	 * System.out.println(session.contains(oBank)); // oTransaction.commit();
-	 * 
+	 *
 	 * // Section 07. Hibernate API // Lecture 48. Reattaching Detached Entities
 	 * // Bank oBank = (Bank) session.get(Bank.class, 1L); //
 	 * oTransaction.commit(); // session.close(); // // Session oSession2 =
@@ -172,7 +174,7 @@ public class Application {
 	 * System.out.println("Update Method Invoke"); //
 	 * System.out.println(oSession2.contains(oBank)); // //
 	 * oTransaction2.commit(); // oSession2.close();
-	 * 
+	 *
 	 * // Section 07. Hibernate API // Lecture 49. Save Or Update // Bank
 	 * detachedBank = (Bank) session.get(Bank.class, 1L); //
 	 * oTransaction.commit(); // session.close(); // // Bank transientBank =
@@ -183,16 +185,16 @@ public class Application {
 	 * oSession2.saveOrUpdate(transientBank); //
 	 * detachedBank.setName("Test Bank 2"); // oTransaction2.commit(); //
 	 * oSession2.close();
-	 * 
+	 *
 	 * // Section 07. Hibernate API // Lecture 50. Flushing The Presistence
 	 * Context Bank oBank = (Bank) session.get(Bank.class, 1L);
 	 * oBank.setName("Changed Bank"); System.out.println("Calling Flush");
 	 * session.flush();
-	 * 
+	 *
 	 * oBank.setAddressLine1("Changed Address");
 	 * System.out.println("Calling commit"); oTransaction.commit();
-	 * 
-	 * 
+	 *
+	 *
 	 * } catch (Exception e) { // TODO: handle exception e.printStackTrace(); }
 	 * finally { // session.close(); HibernateUtil.getSessionFactory().close();
 	 * } // session.close(); }
@@ -209,51 +211,60 @@ public class Application {
 			oSessionFactory = HibernateUtil.getSessionFactory();
 			oSession01 = oSessionFactory.openSession();
 			oTransaction01 =oSession01.beginTransaction();
-			
+
 /*			Section 09. Advanced Mappings & Configuraition
  			Lecture 60. Compound Primary Keys
- 			
+
   			Currency oCurrency = new Currency();
 			oCurrency.setCountryName("Taiwan");
 			oCurrency.setName("Dollar");
 			oCurrency.setSymbol("$");
-			
+
 			oSession01.persist(oCurrency);
 			oTransaction01.commit();
-			
+
 			oSession02 = oSessionFactory.openSession();
 			oTransaction02=oSession02.beginTransaction();
 			Currency dbCurrency = (Currency) oSession02.get(Currency.class, new CurrencyId("Dollar", "Taiwan"));
 			System.out.println("Country Name: [" + dbCurrency.getCountryName() + "]");
 			oTransaction02.commit();
-*/			
+*/
 /*			Section 09. Advanced Mappings & Configuration
  			Lecture 61. Compound Join Columns
- 			
+
  			Currency oCurrency = new Currency();
 			oCurrency.setCountryName("China");
 			oCurrency.setName("Pound");
 			oCurrency.setSymbol("Pound Sign");
-			
+
 			Market oMarket = new Market();
 			oMarket.setMarketName("Stock Exchange");
 			oMarket.setCurrency(oCurrency);
 			oSession01.persist(oMarket);
 			oTransaction01.commit();
-*/			
+*/
 //			Section 09. Advanced Mappings & Configuration
 //			Lecture 62. Enumerations
-			Account oAccount = createNewAccount();
-			oAccount.setAccountType(AccountType.SAVINGS);
+//			Account oAccount = createNewAccount();
+//			oAccount.setAccountType(AccountType.SAVINGS);
+//
+//			oSession01.save(oAccount);
+//			oTransaction01.commit();
+//
+//			Account dbAccount = (Account) oSession01.get(Account.class, oAccount.getAccountId());
+//			System.out.println("Account Name: [" + dbAccount.getName() + "]");
+//			System.out.println("Account Type: [" + dbAccount.getAccountType() + "]");
+
+			// Section 09. Advanced Mappings & Configuration
+			// Lecture 63. Mapped Superclass Inheritance
+			Stock oStock = createStock();
+			oSession01.save(oStock);
 			
-			oSession01.save(oAccount);
+			Bond oBond = createBond();
+			oSession01.save(oBond);
+
 			oTransaction01.commit();
-			
-			Account dbAccount = (Account) oSession01.get(Account.class, oAccount.getAccountId());
-			System.out.println("Account Name: [" + dbAccount.getName() + "]");
-			System.out.println("Account Type: [" + dbAccount.getAccountType() + "]");
-			
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -268,6 +279,27 @@ public class Application {
 //			oSession02.close();
 			oSessionFactory.close();
 		}
+	}
+
+	private static Bond createBond() {
+		Bond oBond = new Bond();
+		oBond.setInterestRate(new BigDecimal("123.22"));
+		oBond.setIssuer("JP Morgan Chase");
+		oBond.setMaturityDate(new Date());
+		oBond.setPurchaseDate(new Date());
+		oBond.setName("Long Term Bond Purchases");
+		oBond.setValue(new BigDecimal("10.22"));
+		return oBond;
+	}
+
+	private static Stock createStock() {
+		Stock oStock = new Stock();
+		oStock.setIssuer("Allen Edmonds");
+		oStock.setName("Private American Stock Purchases");
+		oStock.setPurchaseDate(new Date());
+		oStock.setQuantity(new BigDecimal("1922"));
+		oStock.setSharePrice(new BigDecimal("100.00"));
+		return oStock;
 	}
 
 	private static Date getMyBirthday() {
