@@ -13,10 +13,10 @@ import javax.persistence.Table;
 @Table(name="STOCK")
 public class Stock extends Investment {
 
-	@Id
-	@GeneratedValue
-	@Column(name="STOCK_ID")
-	private Long stockId;
+//	@Id
+//	@GeneratedValue
+//	@Column(name="STOCK_ID")
+//	private Long stockId;
 
 	@Column(name="SHARE_PRICE")
 	private BigDecimal sharePrice;
@@ -24,16 +24,16 @@ public class Stock extends Investment {
 	@Column(name="QUANTITY")
 	private BigDecimal quantity;
 
-	@Column(name="PORTFOLIO_ID")
-	private Long portfolioId;
+//	@Column(name="PORTFOLIO_ID")
+//	private Long portfolioId;
 
-	public Long getStockId() {
-		return stockId;
-	}
-
-	public void setStockId(Long stockId) {
-		this.stockId = stockId;
-	}
+//	public Long getStockId() {
+//		return stockId;
+//	}
+//
+//	public void setStockId(Long stockId) {
+//		this.stockId = stockId;
+//	}
 
 	public BigDecimal getSharePrice() {
 		return sharePrice;
@@ -51,11 +51,11 @@ public class Stock extends Investment {
 		this.quantity = quantity;
 	}
 
-	public Long getPortfolioId() {
-		return portfolioId;
-	}
-
-	public void setPortfolioId(Long portfolioId) {
-		this.portfolioId = portfolioId;
-	}
+//	public Long getPortfolioId() {
+//		return portfolioId;
+//	}
+//
+//	public void setPortfolioId(Long portfolioId) {
+//		this.portfolioId = portfolioId;
+//	}
 }

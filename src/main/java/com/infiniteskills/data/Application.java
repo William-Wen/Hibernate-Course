@@ -17,7 +17,9 @@ import com.infiniteskills.data.entities.Bond;
 import com.infiniteskills.data.entities.Budget;
 import com.infiniteskills.data.entities.Credential;
 import com.infiniteskills.data.entities.Currency;
+import com.infiniteskills.data.entities.Investment;
 import com.infiniteskills.data.entities.Market;
+import com.infiniteskills.data.entities.Portfolio;
 import com.infiniteskills.data.entities.Stock;
 import com.infiniteskills.data.entities.TimeTest;
 import com.infiniteskills.data.entities.Transaction;
@@ -257,14 +259,40 @@ public class Application {
 
 			// Section 09. Advanced Mappings & Configuration
 			// Lecture 63. Mapped Superclass Inheritance
+//			Stock oStock = createStock();
+//			oSession01.save(oStock);
+//			
+//			Bond oBond = createBond();
+//			oSession01.save(oBond);
+//
+//			oTransaction01.commit();
+
+			// Section 09. Advanced Mappings & Configuration
+			// Lecture 64, 65. Table Per Class Inheritance
+			Portfolio oPortfolio = new Portfolio();
+			oPortfolio.setName("First Investments");
+			
 			Stock oStock = createStock();
-			oSession01.save(oStock);
+			oStock.setPortfolio(oPortfolio);
 			
 			Bond oBond = createBond();
+			oBond.setPortfolio(oPortfolio);
+			
+			oPortfolio.getInvestments().add(oStock);
+			oPortfolio.getInvestments().add(oBond);
+			
+			oSession01.save(oStock);
 			oSession01.save(oBond);
-
+			
 			oTransaction01.commit();
-
+			
+			Portfolio dbPortfolio = (Portfolio) oSession01.get(Portfolio.class, oPortfolio.getPortfolioId());
+			oSession01.refresh(dbPortfolio);
+			
+			for (Investment oInvestment : dbPortfolio.getInvestments()) {
+				System.out.println("Name: [" + oInvestment.getName() + "]");
+			}
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
