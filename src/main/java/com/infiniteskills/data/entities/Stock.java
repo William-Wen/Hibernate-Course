@@ -4,13 +4,16 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="STOCK")
+//@Table(name="STOCK")
+@DiscriminatorValue("ST")
 public class Stock extends Investment {
 
 //	@Id
